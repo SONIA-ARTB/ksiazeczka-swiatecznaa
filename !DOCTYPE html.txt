@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Kartka Świąteczna</title>
+  <style>
+    body {
+      margin: 0;
+      padding: 0;
+      overflow: hidden;
+      font-family: 'Segoe UI', sans-serif;
+      background-color: #fdf6f0;
+    }
+
+    .container {
+      display: flex;
+      height: 100vh;
+      width: 100vw;
+    }
+
+    .image-side {
+      background-image: url('https://cdn.pixabay.com/photo/2016/11/29/04/00/christmas-1869902_1280.jpg');
+      background-size: cover;
+      background-position: center;
+      width: 40%;
+    }
+
+    .card {
+      position: relative;
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      text-align: center;
+      padding: 2rem;
+      background: #fff5ee;
+      overflow: hidden;
+    }
+
+    h1 {
+      font-size: 2.5rem;
+      color: #c0392b;
+    }
+
+    p {
+      font-size: 1.2rem;
+      max-width: 500px;
+      color: #5d4037;
+    }
+
+    .clock-date {
+      margin-top: 2rem;
+      font-size: 1.5rem;
+      color: #3e2723;
+    }
+
+    .flower {
+      position: absolute;
+      width: 30px;
+      height: 30px;
+      background-image: url('https://cdn-icons-png.flaticon.com/512/616/616408.png');
+      background-size: cover;
+      animation: fall linear infinite;
+    }
+
+    @keyframes fall {
+      to {
+        transform: translateY(100vh) rotate(360deg);
+        opacity: 0;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <div class="image-side"></div>
+    <div class="card">
+      <h1>Wesołych Świąt!</h1>
+      <p>
+        Niech te Święta przyniosą Ci radość, spokój i wiele szczęśliwych chwil w gronie najbliższych. 
+        Życzymy zdrowia, pomyślności i spełnienia marzeń!
+      </p>
+      <div class="clock-date">
+        <div id="clock"></div>
+        <div id="date"></div>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    function updateClock() {
+      const now = new Date();
+      const time = now.toLocaleTimeString();
+      const date = now.toLocaleDateString('pl-PL', {
+        weekday: 'long', year: 'numeric', month: 'long', day: 'numeric'
+      });
+      document.getElementById('clock').textContent = time;
+      document.getElementById('date').textContent = date;
+    }
+    setInterval(updateClock, 1000);
+    updateClock();
+
+    function createFlower() {
+      const flower = document.createElement('div');
+      flower.classList.add('flower');
+      flower.style.left = Math.random() * 100 + 'vw';
+      flower.style.animationDuration = (Math.random() * 5 + 5) + 's';
+      document.body.appendChild(flower);
+
+      setTimeout(() => flower.remove(), 10000);
+    }
+    setInterval(createFlower, 500);
+  </script>
+</body>
+</html>
